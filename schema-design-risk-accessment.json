@@ -1,0 +1,142 @@
+{ // Risk Management Schema
+    "_id" : 123456789,
+    "ssn" : "RM000011",
+    "event_name" : "File things",
+    "department" : "Office",
+    "process" : "Administrative",
+    "location" : "Administratives works / Level 3",
+    "original_assessment_date" : "30 Nove 2011",
+    "versions" : [
+            {
+                "last_review" : "11 April 2014",
+                "next_review" : "10 April 2017",
+                "ra_leader" : [ //master data
+                    {"emp_id":12345, "name":"Chee Soon Juan"},
+                    {"emp_id":56789, "name":"Goh Chok Tong"}
+                ],
+                "approved":{
+                    "name" : "Lee Hsien Loong",   
+                    "designation" : "Director",
+                    "date"
+                },
+                "work_activity": "Filing/storage of documents",
+                "hazard" : [
+                    {   "type" : "Filing of Documents",
+                        "danger":[
+                            {
+                                "description" : "Heavy files my fall and injure foot due to misplace of files. Admin executive",
+                                "existing_risk_controls" : "To leave the file on a table during filing.",
+                                "severity" : 2,
+                                "likelihood" : 1,
+                                "add_risk_controls" : "To make sure safety boots is wore during filing.",
+                                "add_severity" : 1,
+                                "add_likelihood" : 1,
+                                "implementation_person" : [
+                                    {"emp_num":"EMP123456"}
+                                ],
+                                "due_date" : "11/12/2015",
+                                "remarks" : "I suggest getting safety boots from Bata. Its cheaper."
+                            },
+
+                            {
+                                "description" : "Heavy files my fall and injure foot due to misplace of files. Admin executive",
+                                "existing_risk_controls" : "To leave the file on a table during filing.",
+                                "severity" : 2,
+                                "likelihood" : 1,
+                                "add_risk_controls" : "To make sure safety boots is wore during filing.",
+                                "add_severity" : 1,
+                                "add_likelihood" : 1,
+                                "implementation_person" : [
+                                    {"emp_num":"EMP123456"}
+                                ],
+                                "due_date" : "11/12/2015",
+                                "remarks" : "I suggest getting safety boots from Bata. Its cheaper."
+                            }
+                        ]
+                     },
+                     {   "type" : "Filing of Documents",
+                        "danger":[
+                            {
+                                "description" : "Heavy files my fall and injure foot due to misplace of files. Admin executive",
+                                "existing_risk_controls" : "To leave the file on a table during filing.",
+                                "severity" : 2,
+                                "likelihood" : 1,
+                                "add_risk_controls" : "To make sure safety boots is wore during filing.",
+                                "add_severity" : 1,
+                                "add_likelihood" : 1,
+                                "implementation_person" : [
+                                    {"emp_num":"EMP123456"}
+                                ],
+                                "due_date" : "11/12/2015",
+                                "remarks" : "I suggest getting safety boots from Bata. Its cheaper."
+                            },
+
+                            {
+                                "description" : "Heavy files my fall and injure foot due to misplace of files. Admin executive",
+                                "existing_risk_controls" : "To leave the file on a table during filing.",
+                                "severity" : 2,
+                                "likelihood" : 1,
+                                "add_risk_controls" : "To make sure safety boots is wore during filing.",
+                                "add_severity" : 1,
+                                "add_likelihood" : 1,
+                                "implementation_person" : [
+                                    {"emp_num":"EMP123456"}
+                                ],
+                                "due_date" : "11/12/2015",
+                                "remarks" : "I suggest getting safety boots from Bata. Its cheaper."
+                            }
+                        ]
+                     }
+                ]
+            },
+            {
+                "last_review" : "11 April 2014",
+                "next_review" : "10 April 2017",
+                "ra_leader" : [
+                    {"emp_id":12345, "name":"Chee Soon Juan"},
+                    {"emp_id":56789, "name":"Goh Chok Tong"}
+                ],
+                "approved":{
+                    "name" : "Lee Hsien Loong",   
+                    "designation" : "Director",
+                    "date"
+                },
+                "work_activity": "Filing/storage of documents",
+                "hazard" : [
+                    {   "type" : "Filing of Documents",
+                        "danger":[
+                            {
+                                "description" : "Heavy files my fall and injure foot due to misplace of files. Admin executive",
+                                "existing_risk_controls" : "To leave the file on a table during filing.",
+                                "severity" : 2,
+                                "likelihood" : 1,
+                                "add_risk_controls" : "To make sure safety boots is wore during filing.",
+                                "add_severity" : 1,
+                                "add_likelihood" : 1,
+                                "implementation_person" : [
+                                    {"emp_num":"EMP123456"}
+                                ],
+                                "due_date" : "11/12/2015",
+                                "remarks" : "I suggest getting safety boots from Bata. Its cheaper."
+                            },
+
+                            {
+                                "description" : "Heavy files my fall and injure foot due to misplace of files. Admin executive",
+                                "existing_risk_controls" : "To leave the file on a table during filing.",
+                                "severity" : 2,
+                                "likelihood" : 1,
+                                "add_risk_controls" : "To make sure safety boots is wore during filing.",
+                                "add_severity" : 1,
+                                "add_likelihood" : 1,
+                                "implementation_person" : [
+                                    {"emp_num":"EMP123456"}
+                                ],
+                                "due_date" : "11/12/2015",
+                                "remarks" : "I suggest getting safety boots from Bata. Its cheaper."
+                            }
+                        ]
+                     }
+                ]
+            }
+    ]
+}
