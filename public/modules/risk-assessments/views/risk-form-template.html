@@ -1,0 +1,574 @@
+    <form class="form-horizontal" data-ng-submit="create()" novalidate>
+        <div class="row" ng-show="state==AltRACreateCTRL.FORM_DETAIL_STATE" ng-class="direction">
+            <h3 class="col-md-12">Form Details</h3>
+
+            <div class="col-md-12">
+                <label class="control-label" for="name">Form Name</label>
+
+                <div class="controls">
+                    <input type="text" data-ng-model="name" id="name" class="form-control"
+                           placeholder="Form Name" required>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <label class="control-label" for="department">Department</label>
+
+                <div class="controls">
+                    <input type="text" data-ng-model="department" id="department" class="form-control"
+                           placeholder="department" required>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <label class="control-label" for="process">Process</label>
+
+                <div class="controls">
+                    <input type="text" data-ng-model="process" id="process" class="form-control" placeholder="process"
+                           required>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <label class="control-label" for="location">Processs/Activity Location</label>
+
+                <div class="controls">
+                    <input type="text" data-ng-model="location" id="location" class="form-control"
+                           placeholder="location"
+                           required>
+                </div>
+
+                <label class="control-label" for="original_assessment_date">original assessment date</label>
+
+                <div class="controls" ng-controller="DatepickerDemoCtrl">
+                    <span class="input-group">
+                        <input type="text" class="form-control" datepicker-popup="{{format}}"
+                               ng-model="AltRACreateCTRL.original_assessment_date"
+                               id="original_assessment_date" is-open="opened" datepicker-options="dateOptions"
+                               date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"/>
+                         <span class="input-group-btn">
+                            <button type="button" class="btn btn-default btn-add-item" ng-click="open($event)">
+                                <i class="glyphicon glyphicon-calendar"></i></button>
+                         </span>
+                    </span>
+                </div>
+            </div>
+            <!-- from here on its Risk assessment details -->
+            <div class="col-md-6">
+                <label class="control-label" for="last_review_date">Last Review</label>
+
+                <div class="controls" ng-controller="DatepickerDemoCtrl">
+                <span class="input-group">
+                    <input type="text" class="form-control" datepicker-popup="{{format}}" data-ng-model="AltRACreateCTRL.last_review_date"
+                           id="last_review_date" is-open="opened" datepicker-options="dateOptions"
+                           date-disabled="disabled(date, mode)"
+                           ng-required="true" close-text="Close"/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default btn-add-item" ng-click="open($event)">
+                            <i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label class="control-label" for="next_review">Next Review</label>
+
+                <div class="controls" ng-controller="DatepickerDemoCtrl">
+                <span class="input-group">
+                    <input type="text" class="form-control" datepicker-popup="{{format}}" data-ng-model="AltRACreateCTRL.next_review_date"
+                           id="next_review" is-open="opened" datepicker-options="dateOptions"
+                           date-disabled="disabled(date, mode)"
+                           ng-required="true" close-text="Close"/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default btn-add-item" ng-click="open($event)">
+                            <i class="glyphicon glyphicon-calendar"></i></button>
+                     </span>
+                </span>
+                </div>
+            </div>
+
+            <div class="col-md-12 marginTop10">
+                <h3>People Involved</h3>
+                <label class="control-label" for="risk_assessment_leader">Risk Assessment Leader</label>
+
+                <div class="controls">
+                    <input type="text" data-ng-model="risk_assessment_leader" id="risk_assessment_leader"
+                           class="form-control" placeholder="Risk Assessment Leader" typeahead-editable="false"
+                           typeahead="user as user.name+ ' (EMP'+user.id+')' for user in users | filter:$viewValue | limitTo:8" class="form-control" required>
+                </div>
+
+
+                <div class="panel panel-default marginTop10">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Risk Assessment Members</h2>
+                    </div>
+
+                    <div class="list-group-item"
+                         ng-repeat="risk_assessment_member in AltRACreateCTRL.risk_assessment_members">
+
+                        <div class="row">
+                            <div ng-show="risk_assessment_member.edit" class="col-md-9">
+                                <input type="text" data-ng-model="risk_assessment_member.tmp" typeahead="user as user.name+ '(EMP'+user.id+')' for user in users | filter:$viewValue | limitTo:8" typeahead-editable="false"
+                                       class="form-control" placeholder="risk_assessment_member._id" required>
+                            </div>
+                            <div ng-show="risk_assessment_member.edit" class="col-md-3">
+                                <span class="edit-delete pull-right">
+                                    <span class="btn"
+                                          ng-click="risk_assessment_member.edit=false; risk_assessment_member.name=risk_assessment_member.tmp.name;risk_assessment_member.id=risk_assessment_member.tmp.id">
+                                        <i class="glyphicon glyphicon-edit"></i> SAVE
+                                    </span>
+                                    <span class="btn" ng-click="risk_assessment_member.edit=false;"><i
+                                            class="glyphicon glyphicon-remove marginLeft10"></i> CANCEL </span>
+                                </span>
+                            </div>
+
+                            <div class="col-md-9" ng-hide="risk_assessment_member.edit">
+                                <span class="list-text">{{risk_assessment_member.name}} EMP:{{risk_assessment_member.id}}</span>
+                            </div>
+                            <div class="col-md-3" ng-hide="risk_assessment_member.edit">
+                            <span class="edit-delete pull-right">
+                                <span class="btn"
+                                      ng-click="risk_assessment_member.edit=true;risk_assessment_member.tmp=risk_assessment_member.name;">
+                                    <i class="glyphicon glyphicon-edit"></i> EDIT </span>
+                                <span class="btn" ng-click="AltRACreateCTRL.deleteMember($index);">
+                                    <i class="glyphicon glyphicon-remove marginLeft10"></i> DELETE</span>
+                            </span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="controls">
+                                    <input type="text" data-ng-model="risk_assessment_member.tmp"
+                                           id="risk_assessment_member._id" typeahead="user as user.name+ '(EMP'+user.id+')' for user in users | filter:$viewValue | limitTo:8" class="form-control"
+                                           value="user.name" placeholder="risk_assessment_member._id" typeahead-editable="false" required>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="button" class="btn btn-default width100" type="button"
+                                        ng-click="AltRACreateCTRL.addRiskAssessmentMember(risk_assessment_member.tmp.name,risk_assessment_member.tmp.id);
+                                        risk_assessment_member.tmp='';">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    Add Member
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <h3>Approval</h3>
+                <label class="control-label" for="approve_by">Approved By</label>
+
+                <div class="controls">
+                    <input type="text" data-ng-model="approved_by" id="approve_by" class="form-control"
+                           placeholder="approved by" typeahead="user as user.name+ ' (EMP'+user.id+')' for user in users |
+                           filter:$viewValue | limitTo:8" class="form-control" typeahead-editable="false" required>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="controls" ng-controller="DatepickerDemoCtrl">
+                    <label class="control-label" for="approve_date">Approve Date</label>
+                <span class="input-group">
+                    <input type="text" class="form-control" datepicker-popup="{{format}}"data-ng-model="AltRACreateCTRL.approve_date"
+                           id="approve_date" is-open="opened" datepicker-options="dateOptions"
+                           date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"/>
+                     <span class="input-group-btn">
+                        <button type="button" class="btn btn-default btn-add-item" ng-click="open($event)">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                        </button>
+                     </span>
+                </span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <br>
+                <button class="btn-primary btn pull-right"
+                        ng-click="AltRACreateCTRL.moveToWorkActivities();">Proceed to add Work Activities <i
+                        class="glyphicon glyphicon-arrow-right pull-right marginLeft5"></i></button>
+            </div>
+        </div>
+
+        <div class="row" ng-class="direction" ng-show="state==AltRACreateCTRL.WORK_ACTIVITY_STATE">
+            <div class="col-md-12">
+                <h3>Work Activities</h3>
+
+                <div class="list-group">
+
+                    <a class="list-group-item" ng-repeat="wa in AltRACreateCTRL.work_activities"
+                       ng-click="AltRACreateCTRL.drillIntoWA(wa)">
+                        <div class="row">
+                            <div ng-show="wa.edit" class="col-md-9">
+                                <input type="text" data-ng-model="wa.tmp" class="form-control"
+                                       ng-click="$event.preventDefault(); $event.stopPropagation();"
+                                       placeholder="wa._id" required>
+                            </div>
+                            <div ng-show="wa.edit" class="col-md-3">
+                                    <span class="edit-delete pull-right">
+                                        <span class="btn"
+                                              ng-click="wa.edit=false; wa.description=wa.tmp; $event.preventDefault(); $event.stopPropagation();">
+                                            <i class="glyphicon glyphicon-edit"></i> SAVE
+                                        </span>
+                                        <span class="btn"
+                                              ng-click="wa.edit=false; $event.preventDefault(); $event.stopPropagation();"><i
+                                                class="glyphicon glyphicon-remove marginLeft10"></i> CANCEL </span>
+                                    </span>
+                            </div>
+
+                            <div class="col-md-9" ng-hide="wa.edit">
+                                <span class="list-text marginTop6"> {{wa.description}}</span>
+                            </div>
+
+                            <div class="col-md-3" ng-hide="wa.edit">
+                                <i class="glyphicon glyphicon-menu-right pull-right triangle-drill marginTop6"></i>
+                                <span class="edit-delete pull-right">
+                                    <span class="btn"
+                                          ng-click="wa.edit=true;wa.tmp=wa.description;$event.preventDefault(); $event.stopPropagation();">
+                                        <i class="glyphicon glyphicon-edit"></i> EDIT </span>
+                                    <span class="btn"
+                                          ng-click="AltRACreateCTRL.work_activities.splice($index,1);$event.preventDefault(); $event.stopPropagation();">
+                                        <i class="glyphicon glyphicon-remove marginLeft10"></i> DELETE</span>
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <div class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="controls">
+                                    <input type="text" data-ng-model="work_activity_name" id="work-activity"
+                                           class="form-control"
+                                           placeholder="Work Activity Name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn-default btn width100" ng-click="AltRACreateCTRL.addWorkActivity(work_activity_name);
+                             work_activity_name = null;"><i class="glyphicon glyphicon-plus"></i> Add Activity
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row" ng-show="state==AltRACreateCTRL.SUBTASK_STATE" ng-class="direction">
+
+            <div class="col-md-12">
+                <div class="title-header">Work Activity</div>
+                <h3 class="marginTop0">{{AltRACreateCTRL.currentWA.description }}</h3>
+
+                <div class="list-group marginTop10">
+                    <a class="list-group-item" ng-repeat="subtask in AltRACreateCTRL.currentWA.subtask"
+                       ng-click="AltRACreateCTRL.drillIntoST(subtask);">
+                        <div class="row">
+                            <div ng-show="subtask.edit" class="col-md-9">
+                                <input type="text" data-ng-model="subtask.tmp" class="form-control"
+                                       ng-click="$event.preventDefault(); $event.stopPropagation();"
+                                       placeholder="subtask._id" required>
+                            </div>
+                            <div ng-show="subtask.edit" class="col-md-3">
+                                    <span class="edit-delete pull-right">
+                                        <span class="btn"
+                                              ng-click="subtask.edit=false; subtask.description=subtask.tmp;
+                                              $event.preventDefault(); $event.stopPropagation();">
+                                            <i class="glyphicon glyphicon-edit"></i> SAVE
+                                        </span>
+                                        <span class="btn"
+                                              ng-click="subtask.edit=false; $event.preventDefault(); $event.stopPropagation();"><i
+                                                class="glyphicon glyphicon-remove marginLeft10"></i> CANCEL </span>
+                                    </span>
+                            </div>
+
+                            <div class="col-md-9" ng-hide="subtask.edit">
+                                <span class="list-text marginTop6"> {{subtask.description}}</span>
+                            </div>
+
+                            <div class="col-md-3" ng-hide="subtask.edit">
+                                <i class="glyphicon glyphicon-menu-right pull-right triangle-drill marginTop6"></i>
+                                <span class="edit-delete pull-right">
+                                    <span class="btn"
+                                          ng-click="subtask.edit=true;subtask.tmp=subtask.description;$event.preventDefault(); $event.stopPropagation();">
+                                        <i class="glyphicon glyphicon-edit"></i> EDIT </span>
+                                    <span class="btn"
+                                          ng-click="AltRACreateCTRL.currentWA.subtask.splice($index,1);$event.preventDefault(); $event.stopPropagation();">
+                                        <i class="glyphicon glyphicon-remove marginLeft10"></i> DELETE</span>
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <div class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="controls">
+                                    <input type="text" data-ng-model="subtask_name" id="subtask" class="form-control"
+                                           placeholder="Subtask Name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn-default btn width100" ng-click="AltRACreateCTRL.addSubtask(subtask_name);
+                                subtask_name=null;"><i class="glyphicon glyphicon-plus"></i> Add Subtask
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-show="state==AltRACreateCTRL.HAZARD_STATE" ng-class="direction">
+            <div class="col-md-12">
+                <div class="title-header">Subtask</div>
+                <h3 class="marginTop0">{{AltRACreateCTRL.currentST.description }}</h3>
+
+                <div class="list-group marginTop10">
+                    <a class="list-group-item" ng-repeat="hazard in AltRACreateCTRL.currentST.hazard"
+                       ng-click="AltRACreateCTRL.drillIntoHZ(hazard);">
+                        <div class="row">
+                            <div ng-show="hazard.edit" class="col-md-9">
+                                <input type="text" data-ng-model="hazard.tmp" class="form-control"
+                                       ng-click="$event.preventDefault(); $event.stopPropagation();"
+                                       placeholder="hazard._id" required>
+                            </div>
+                            <div ng-show="hazard.edit" class="col-md-3">
+                                    <span class="edit-delete pull-right">
+                                        <span class="btn"
+                                              ng-click="hazard.edit=false; hazard.description=hazard.tmp; $event.preventDefault();
+                                               $event.stopPropagation();">
+                                            <i class="glyphicon glyphicon-edit"></i> SAVE
+                                        </span>
+                                        <span class="btn"
+                                              ng-click="hazard.edit=false; $event.preventDefault(); $event.stopPropagation();">
+                                            <i class="glyphicon glyphicon-remove marginLeft10"></i> CANCEL </span>
+                                    </span>
+                            </div>
+
+                            <div class="col-md-9" ng-hide="hazard.edit">
+                                <span class="list-text marginTop6"> {{hazard.description}}</span>
+                            </div>
+
+                            <div class="col-md-3" ng-hide="hazard.edit">
+                                <i class="glyphicon glyphicon-menu-right pull-right triangle-drill marginTop6"></i>
+                                <span class="edit-delete pull-right">
+                                    <span class="btn"
+                                          ng-click="hazard.edit=true;hazard.tmp=hazard.description;$event.preventDefault();
+                                          $event.stopPropagation();">
+                                        <i class="glyphicon glyphicon-edit"></i> EDIT </span>
+                                    <span class="btn"
+                                          ng-click="AltRACreateCTRL.currentST.hazard.splice($index,1);$event.preventDefault();
+                                           $event.stopPropagation();">
+                                        <i class="glyphicon glyphicon-remove marginLeft10"></i> DELETE</span>
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <div class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="controls">
+                                    <input type="text" data-ng-model="hazard_name" id="hazard" class="form-control"
+                                           placeholder="Hazard Name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn-default btn width100"
+                                        ng-click="AltRACreateCTRL.addHazard(hazard_name); hazard_name=null;">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    Add Hazard
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row" ng-show="state==AltRACreateCTRL.RISKCTRL_STATE" ng-class="direction">
+            <div class="col-md-12">
+                <div class="title-header">Hazard</div>
+                <h3 class="marginTop0">{{AltRACreateCTRL.currentHZ.description }}</h3>
+
+                <div class="list-group marginTop10">
+                    <a class="list-group-item" ng-repeat="riskctrl in AltRACreateCTRL.currentHZ.risk_control"
+                       ng-click="AltRACreateCTRL.drillIntoRC(riskctrl);">
+
+                        <div class="row">
+                            <div ng-show="riskctrl.edit" class="col-md-9">
+                                <input type="text" data-ng-model="hazard.tmp" class="form-control"
+                                       ng-click="$event.preventDefault(); $event.stopPropagation();"
+                                       placeholder="hazard._id" required>
+                            </div>
+                            <div ng-show="riskctrl.edit" class="col-md-3">
+                                <span class="edit-delete pull-right">
+                                    <span class="btn"
+                                          ng-click="riskctrl.edit=false; riskctrl.description=riskctrl.tmp; $event.preventDefault(); $event.stopPropagation();">
+                                        <i class="glyphicon glyphicon-edit"></i> SAVE
+                                    </span>
+                                    <span class="btn"
+                                          ng-click="riskctrl.edit=false; $event.preventDefault(); $event.stopPropagation();">
+                                        <i class="glyphicon glyphicon-remove marginLeft10"></i> CANCEL </span>
+                                </span>
+                            </div>
+
+                            <div class="col-md-9" ng-hide="riskctrl.edit">
+                                <span class="list-text marginTop6"> {{riskctrl.description}}</span>
+                            </div>
+
+                            <div class="col-md-3" ng-hide="riskctrl.edit">
+                                <i class="glyphicon glyphicon-menu-right pull-right triangle-drill marginTop6"></i>
+                                    <span class="edit-delete pull-right">
+                                        <span class="btn"
+                                              ng-click="riskctrl.edit=true;riskctrl.tmp=hazard.description;$event.preventDefault(); $event.stopPropagation();">
+                                            <i class="glyphicon glyphicon-edit"></i> EDIT </span>
+                                        <span class="btn"
+                                              ng-click="AltRACreateCTRL.currentHZ.rc.splice($index,1);$event.preventDefault(); $event.stopPropagation();">
+                                            <i class="glyphicon glyphicon-remove marginLeft10"></i> DELETE</span>
+                                    </span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <div class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="controls">
+                                    <input type="text" data-ng-model="riskctrl_name" id="riskctrl" class="form-control"
+                                           placeholder="Risk ctrl Name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn-default btn col-md-2 width100"
+                                        ng-click="AltRACreateCTRL.addRiskCtrl(riskctrl_name); riskctrl_name=null;">
+                                    <i class="glyphicon glyphicon-plus"></i> Add Risk Control
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-show="state==AltRACreateCTRL.ADDRISKCTRL_STATE" ng-class="direction">
+            <div class="col-md-12">
+                <div class="title-header">Risk Control</div>
+                <h3 class="marginTop0">{{AltRACreateCTRL.currentRC.description }}</h3>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label" for="rc.severity">severity</label>
+
+                        <div class="controls">
+                            <input type="text" numbers-only="numbers-only" data-ng-model="AltRACreateCTRL.currentRC.severity" id="rc.severity"
+                                   class="form-control" placeholder="severity" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-label" for="rc.likelihood">likelihood</label>
+
+                        <div class="controls">
+                            <input type="text" numbers-only="numbers-only" data-ng-model="AltRACreateCTRL.currentRC.likelihood"
+                                   id="rc.likelihood" class="form-control" placeholder="likelihood" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-label" for="rc.rpn">RPN</label>
+
+                        <div class="controls">
+                            <input type="text" value="{{(AltRACreateCTRL.currentRC.likelihood * AltRACreateCTRL.currentRC.severity)||0 }}"
+                                   id="rc.rpn" class="form-control" placeholder="rc.rpn" disabled required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12" data-ng-show="(AltRACreateCTRL.currentRC.likelihood * AltRACreateCTRL.currentRC.severity)>3">
+                <label class="control-label" for="add-addi-risk-ctrl">Additional Control Name</label>
+
+                <div class="controls">
+                    <input type="text" class="form-control" id=add-addi-risk-ctrl
+                           data-ng-model="AltRACreateCTRL.currentRC.additional_risk_control.description">
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label" for="arc.severity">severity</label>
+
+                        <div class="controls">
+                            <input type="text" numbers-only="numbers-only" data-ng-model="AltRACreateCTRL.currentRC.additional_risk_control.severity"
+                                   id="arc.severity" class="form-control"
+                                   placeholder="severity" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-label" for="arc.likelihood">likelihood</label>
+
+                        <div class="controls">
+                            <input type="text" numbers-only="numbers-only" data-ng-model="AltRACreateCTRL.currentRC.additional_risk_control.likelihood"
+                                   id="arc.likelihood" class="form-control"
+                                   placeholder="likelihood" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-label" for="arc.rpn">RPN</label>
+
+                        <div class="controls">
+                            <input type="text" value="{{(AltRACreateCTRL.currentRC.additional_risk_control.likelihood *
+                            AltRACreateCTRL.currentRC.additional_risk_control.severity)||0 }}" id="arc.rpn"
+                                   class="form-control" placeholder="arc.rpn" disabled required>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="control-label" for="arc.implementation">Implementation Person</label>
+                        <input type="text" id="arc.implementation" data-ng-model="arc.implementation"
+                               class="form-control" placeholder="hazard._id"
+                               typeahead="user as user.name+ ' (EMP'+user.id+')' for user in users |
+                                        filter:$viewValue | limitTo:8" class="form-control" typeahead-editable="false" required>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="control-label" for="due_date">Due date</label>
+                        <div class="controls" ng-controller="DatepickerDemoCtrl">
+                            <span class="input-group">
+                                <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                       ng-model="due_date"
+                                       id="due_date" is-open="opened" datepicker-options="dateOptions"
+                                       date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"/>
+                                 <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-add-item" ng-click="open($event)">
+                                        <i class="glyphicon glyphicon-calendar"></i></button>
+                                 </span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="control-label" for="arc.remarks">Remarks</label>
+                        <div class="controls">
+                            <input type="text" data-ng-model="arc.remarks" id="arc.remarks"
+                                   class="form-control" placeholder="Remarks" required>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-default marginTop10" ng-show="state>1" ng-click="AltRACreateCTRL.moveBack()"
+                ng-class="direction">
+            <i class="glyphicon glyphicon-arrow-left"></i> Back to {{AltRACreateCTRL.getPageName(state)}}
+        </button>
+        <button class="btn btn-success pull-right marginTop10" ng-click="AltRACreateCTRL.saveForm()">
+            Save Form
+        </button>
+    </form>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+

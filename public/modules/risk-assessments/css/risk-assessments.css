@@ -1,0 +1,193 @@
+@media print {
+    body{
+        font-size: 9px;
+    }
+}
+
+.risk-assessment-member{
+    /*padding: 15px;*/
+    /*margin:5px;*/
+    /*border: lightgrey solid thin;*/
+    /*background:#fdfdfd;*/
+}
+
+.indent-box{
+    padding-left: 25px;
+}
+
+
+v-pane-content{
+    padding-left: 15px;
+    margin-left: 10px;
+    border-left: 2px solid lightgrey;
+
+}
+
+
+.vAccordion--default v-accordion.left-padding-0{
+    padding-left: 0;
+}
+
+.btn-add-item{
+    width: 100%;
+    /*margin-left: 15px;*/
+}
+
+/*.btn-drill-in{*/
+    /*cursor: pointer;*/
+    /*width: 100%;*/
+    /*padding-bottom: 10px;*/
+/*}*/
+
+.btn-drill-in:hover{
+    color:blue;
+}
+
+.width100{
+    width:100%;
+}
+
+div.item{
+    padding: 10px 10px 0px 15px;
+    background: #eeeeee;
+    border:thin solid #dddddd;
+    margin-bottom: 2px;
+    border-radius: 6px;
+}
+
+.text-left{
+    text-align: left !important;
+}
+
+.item-container{
+    background: #efefef;
+    border:thin solid #dddddd;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+
+
+/*
+ * The animations
+ */
+.right.ng-hide-add{
+    -webkit-animation:0.5s fadeOutLeft ease;
+    animation:0.5s fadeOutLeft ease;
+    position: absolute;
+
+}
+
+.left.ng-hide-add{
+    -webkit-animation:0.5s fadeOutRight ease;
+    animation:0.5s fadeOutRight ease;
+    position: absolute;
+
+}
+
+/* when showing the thing */
+.left.ng-hide-remove      {
+    -webkit-animation:0.5s fadeInLeft ease;
+    animation:0.5s fadeInLeft ease;
+    position: static;
+}
+
+/* when showing the thing */
+.right.ng-hide-remove      {
+    -webkit-animation:0.5s fadeInRight ease;
+    animation:0.5s fadeInRight ease;
+    position: static;
+}
+
+.marginTop6{
+    margin-top: 6px;
+}
+
+.marginLeft5{
+    margin-left: 5px !important;
+}
+
+.marginLeft10{
+    margin-left: 10px !important;
+}
+
+.marginTop5{
+    margin-top: 5px !important;
+}
+
+.marginTop10{
+    margin-top: 10px !important;
+}
+.marginTop0{
+    margin-top: 0 !important;
+}
+
+.marginBottom20{
+    margin-bottom: 20px;
+}
+
+.paddingTopBot5{
+    padding-top:5px;
+    padding-bottom:5px;
+}
+
+.edit-delete{
+    color:#57b5f7;
+    font-size:90%;
+}
+
+.list-text{
+    font-size: 130%;
+}
+
+.title-header{
+    margin-top: 20px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    color: #c5c5c5;
+}
+
+.red{
+    color: red;
+}
+
+h3{
+    font-size: 250%;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    color:#57b5f7;
+}
+
+.triangle-drill{
+    font-size: 125%;
+}
+
+.header-row{
+    font-weight: 700;
+}
+.row-style{
+    padding: 10px 0;
+    border-bottom: 1px #808080 solid;
+}
+
+.col-style{
+
+}
+
+.highlight{
+    font-family: 'Open Sans', sans-serif;
+
+    font-size: 90%;
+    color:grey;
+}
+
+.field-big{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 150%;
+
+}
+
+.field-medium{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 120%;
+}

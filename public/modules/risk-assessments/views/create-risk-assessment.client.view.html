@@ -1,23 +1,233 @@
-<section data-ng-controller="RiskAssessmentsController">
+<section data-ng-controller="RiskAssessmentsCreateController as RACreateCTRL" >
     <div class="page-header">
-        <h1>New Risk assessment</h1>
+        <h1>Risk Assessment Form</h1>
+
     </div>
-    <div class="col-md-12">
-        <form class="form-horizontal" data-ng-submit="create()" novalidate>
-            <fieldset>
-                <div class="form-group">
-                    <label class="control-label" for="name">Name</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" required>
-                    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-horizontal" data-ng-submit="create()" novalidate>
+                <v-accordion class="vAccordion--default">
+                    <v-pane>
+                        <v-pane-header>
+                            Form Details
+                        </v-pane-header>
+                        <v-pane-content>
+                            <label class="control-label" for="name">Name</label>
+                            <div class="controls">
+                                <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" required>
+                            </div>
+                            <label class="control-label" for="department">department</label>
+                            <div class="controls">
+                                <input type="text" data-ng-model="department" id="department" class="form-control" placeholder="department" required>
+                            </div>
+                            <label class="control-label" for="process">process</label>
+                            <div class="controls">
+                                <input type="text" data-ng-model="process" id="process" class="form-control" placeholder="process" required>
+                            </div>
+                            <label class="control-label" for="location">location</label>
+                            <div class="controls">
+                                <input type="text" data-ng-model="location" id="location" class="form-control" placeholder="location" required>
+                            </div>
+
+                            <label class="control-label" for="original_assessment_date">original assessment date</label>
+                            <div class="controls" ng-controller="DatepickerDemoCtrl">
+                                <span class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="original_assessment_date" id="original_assessment_date" is-open="opened" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                                 <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-add-item" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </span>
+                            </div>
+
+                            <!-- from here on its Risk assessment details -->
+                            <label class="control-label" for="last_review">Last Review</label>
+                            <div class="controls">
+                                <input type="text" data-ng-model="last_review" id="last_review" class="form-control" placeholder="last review" required>
+                            </div>
+
+                            <label class="control-label" for="next_review">Next Review</label>
+                            <div class="controls">
+                                <input type="text" data-ng-model="next_review" id="next_review" class="form-control" placeholder="next review" required>
+                            </div>
+                        </v-pane-content>
+                    </v-pane>
+
+                <v-pane>
+                    <v-pane-header>
+                        Risk Assessment Members
+                    </v-pane-header>
+
+                    <v-pane-content>
+                        <label class="control-label" for="risk_assessment_leader">Risk Assessment Leader</label>
+                        <div class="controls">
+                            <input type="text" data-ng-model="risk_assessment_leader" id="risk_assessment_leader" class="form-control" placeholder="Risk Assessment Leader" required>
+                        </div>
+
+                        <h3>Risk Assessment Members</h3>
+                        <div class="controls" ng-repeat="risk_assessment_member in RACreateCTRL.riskAssessmentMembers">
+                            <label class="control-label" for="risk_assessment_member._id">Risk Assessment Member #{{$index+1}}</label>
+                            <div class="controls">
+                                <label type="text" data-ng-model="risk_assessment_member._id" id="risk_assessment_member._id" class="form-control" placeholder="ra member" required>
+                            </div>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-add-item" type="button" ng-click="RACreateCTRL.addRiskAssessmentMember();">
+                                <i class="glyphicon glyphicon-plus-sign"></i>
+                                Add Risk Assessment Member
+                            </button>
+                        </div>
+                    </v-pane-content>
+                </v-pane>
+
+                <v-pane>
+                    <v-pane-header>
+                       Approved By
+                    </v-pane-header>
+                    <v-pane-content>
+                        <label class="control-label" for="approved">Approved</label>
+                        <div class="controls">
+                            <input type="text" data-ng-model="approved" id="approved" class="form-control" placeholder="approved" required>
+                        </div>
+
+                        <label class="control-label" for="approveDate">Approve Date</label>
+                        <div class="controls">
+                            <input type="text" data-ng-model="approveDate" id="approveDate" class="form-control" placeholder="approveDate" required>
+                        </div>
+                    </v-pane-content>
+                </v-pane>
+
+                <v-pane>
+                    <v-pane-header>
+                        Work Activities
+                    </v-pane-header>
+                    <v-pane-content>
+                <div class="indent-box">
+                    <v-accordion class="vAccordion--default left-padding-0">
+                        <v-pane ng-repeat="workActivity in RACreateCTRL.workActivities">
+                            <v-pane-header>
+                                {{workActivity.name}}
+                            </v-pane-header>
+                            <v-pane-content>
+                            <label class="control-label" for="workActivity.name">Name</label>
+                            <div class="controls">
+                                <input type="text" data-ng-model="workActivity.name" id="workActivity.name" class="form-control" placeholder="work activity" required>
+                            </div>
+
+                            <!-- start of subtask -->
+                            <div class="indent-box">
+                                <!--<div ng-repeat="subtask in workActivity.subtasks">-->
+                                <v-accordion class="vAccordion--default left-padding-0">
+                                    <v-pane  ng-repeat="subtask in workActivity.subtasks">
+                                        <v-pane-header>
+                                           {{subtask.name}}
+                                        </v-pane-header>
+                                            <v-pane-content>
+                                    <label class="control-label" for="subtask.name">Subtask Name</label>
+                                    <div class="controls">
+                                        <input type="text" data-ng-model="subtask.name" id="subtask.name" class="form-control" placeholder="Subtask name" required>
+                                    </div>
+
+                                    <div class="indent-box">
+
+                                        <v-accordion class="vAccordion--default left-padding-0">
+                                            <v-pane  ng-repeat="hazard in subtask.hazards">
+                                                <v-pane-header>
+                                                    {{hazard.name}}
+                                                </v-pane-header>
+                                                <v-pane-content>
+                                            <label class="control-label" for="hazard.name">hazard Name</label>
+                                            <div class="controls">
+                                                <input type="text" data-ng-model="hazard.name" id="hazard.name" class="form-control" placeholder="hazard name" required>
+                                            </div>
+
+                                            <div class="indent-box">
+                                                <v-accordion class="vAccordion--default left-padding-0">
+                                                    <v-pane ng-repeat="existing_risk_control in hazard.existingRiskControls">
+                                                        <v-pane-header>
+                                                            {{existing_risk_control.name}}
+                                                        </v-pane-header>
+                                                        <v-pane-content>
+                                                            <label class="control-label" for="existing_risk_control.name">Risk Control</label>
+                                                            <div class="controls">
+                                                                <input type="text" data-ng-model="existing_risk_control.name" id="existing_risk_control.name" class="form-control" placeholder="existing risk control name" required>
+                                                            </div>
+                                                            <label class="control-label" for="existing_risk_control.severity">Severity</label>
+                                                            <div class="controls">
+
+                                                                <input type="text" data-ng-model="existing_risk_control.severity" id="existing_risk_control.severity" class="form-control" placeholder="existing risk severity" ng-Change="existing_risk_control.riskNumChanged(existing_risk_control)" required>
+                                                            </div>
+                                                            <label class="control-label" for="existing_risk_control.likelihood">Likelihood</label>
+                                                            <div class="controls">
+                                                                <input type="text" data-ng-model="existing_risk_control.likelihood" id="existing_risk_control.likelihood" class="form-control" placeholder="likelihood" ng-Change="existing_risk_control.riskNumChanged(existing_risk_control)" required>
+                                                            </div>
+                                                            <label class="control-label" for="existing_risk_control.rpn">RPN</label>
+                                                            <div class="controls">
+                                                                <input type="text" data-ng-model="existing_risk_control.rpn" id="existing_risk_control.rpn" class="form-control" placeholder="rpn" disabled>
+                                                            </div>
+
+                                                            <div ng-repeat="additional_risk_control in existing_risk_control.additionalRiskControls">
+                                                                <h3>Additional Risk Control</h3>
+                                                                <label class="control-label" for="additional_risk_control.name">Additional Risk Control</label>
+                                                                <div class="controls">
+                                                                    <input type="text" data-ng-model="additional_risk_control.name" id="additional_risk_control.name" class="form-control" placeholder="additional risk control name" required>
+                                                                </div>
+                                                                <label class="control-label" for="additional_risk_control.severity">Severity</label>
+                                                                <div class="controls">
+                                                                    <input type="text" data-ng-model="additional_risk_control.severity" id="additional_risk_control.severity" class="form-control" placeholder="additional_risk severity" required>
+                                                                </div>
+                                                                <label class="control-label" for="additional_risk_control.likelihood">Likelihood</label>
+                                                                <div class="controls">
+                                                                    <input type="text" data-ng-model="additional_risk_control.likelihood" id="additional_risk_control.likelihood" class="form-control" placeholder="additional_risklikelihood" required>
+                                                                </div>
+                                                            </div>
+                                                            </v-pane-content>
+                                                        </v-pane>
+                                                    </v-accordion>
+                                                <button class="btn btn-default btn-add-item" type="button" ng-click="hazard.addExistingRiskControl();">
+                                                    <i class="glyphicon glyphicon-plus-sign"></i>
+                                                    Add Risk Control
+                                                </button>
+                                            </div>
+                                                </v-pane-content>
+                                            </v-pane>
+
+                                        </v-accordion>
+
+                                        <button class="btn btn-default btn-add-item" type="button" ng-click="subtask.addHazard();">
+                                            <i class="glyphicon glyphicon-plus-sign"></i>
+                                            Add Hazard
+                                        </button>
+                                    </div>
+                                    </v-pane-content>
+                                    </v-pane>
+                                </v-accordion>
+
+                                 <button class="btn btn-default btn-add-item" type="button" ng-click="workActivity.addSubtask();">
+                                     <i class="glyphicon glyphicon-plus-sign"></i>
+                                     Add Subtask
+                                 </button>
+                            </div>
+                            <!-- end of subtask -->
+
+                            </v-pane-content>
+                        </v-pane>
+                    </v-accordion>
+                    <button class="btn btn-default btn-add-item" type="button" ng-click="RACreateCTRL.workActivities.addWorkActivity();">
+                        <i class="glyphicon glyphicon-plus-sign"></i>
+                        Add Work Activity
+                    </button>
                 </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-default">
+
+                    </v-pane-content>
+                </v-pane>
+            </v-accordion>
+                <button type="submit" class="btn btn-default">Create Risk Assessment</button>
+                <div data-ng-show="error" class="text-danger">
+                    <strong data-ng-bind="error"></strong>
                 </div>
-				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
-            </fieldset>
-        </form>
+            </form>
+
+        </div>
     </div>
 </section>

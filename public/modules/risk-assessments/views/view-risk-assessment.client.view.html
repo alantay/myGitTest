@@ -1,21 +1,205 @@
-<section data-ng-controller="RiskAssessmentsController" data-ng-init="findOne()">
+<section data-ng-controller="ViewRiskAssessmentsController as ViewCtrl">
 	<div class="page-header">
-		<h1 data-ng-bind="riskAssessment.name"></h1>
+        {{ViewCtrl.riskAssessment.name}}
 	</div>
-	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == riskAssessment.user._id))">
-		<a class="btn btn-primary" href="/#!/risk-assessments/{{riskAssessment._id}}/edit">
-			<i class="glyphicon glyphicon-edit"></i>
-		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
-			<i class="glyphicon glyphicon-trash"></i>
-		</a>
-	</div>
-	<small>
-		<em class="text-muted">
-			Posted on
-			<span data-ng-bind="riskAssessment.created | date:'mediumDate'"></span>
-			by
-			<span data-ng-bind="riskAssessment.user.displayName"></span>
-		</em>
-	</small>
+
+    <div class="row"><!-- Form Details -->
+        <div class="col-xs-4">
+            <div class="row">
+                <div class="col-xs-4">
+                    <div class="row">
+                        <div class="col-xs-12 highlight">
+                            Department
+                        </div>
+                        <div class="col-xs-12 field-big marginBottom20">
+                            {{riskAssessment.department}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-8">
+                    <div class="row">
+                        <div class="col-xs-12 highlight">
+                            Process
+                        </div>
+                        <div class="col-xs-12 field-big marginBottom20">
+                            {{riskAssessment.process}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 highlight">
+                    Location
+                </div>
+                <div class="col-xs-12 field-big marginBottom20">
+                    {{riskAssessment.location}}
+                </div>
+            </div>
+        </div>
+
+
+        <div class=" col-xs-4">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="col-xs-12 highlight">
+                            Assessment:
+                        </div>
+                        <div class="col-xs-12 field-medium marginBottom20">
+                            {{ riskAssessment.original_assessment_date | date : format : timezone}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-6">
+                    <div class="row">
+                        <div class="col-xs-12 highlight">
+                            Last Review:
+                        </div>
+                        <div class="col-xs-12 field-big marginBottom20">
+
+                            {{ riskAssessment.last_review | date : format : timezone}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-6">
+                    <div class="row">
+                        <div class="col-xs-12 highlight">
+                            Next Review:
+                        </div>
+                        <div class="col-xs-12 field-big marginBottom20">
+                            {{ riskAssessment.next_review | date : format : timezone}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-xs-2">
+            <div class="row">
+                <div class="col-xs-12 highlight">
+                    RA Leader:
+                </div>
+                <div class="col-xs-12 field-medium marginBottom20">
+                    {{riskAssessment.risk_assessment_leader.name}}
+                </div>
+                <div class="col-xs-12 highlight">RA Members</div>
+                <div class ="col-xs-12 field-medium" ng-repeat="rm in riskAssessment.risk_assessment_members">
+                    <div class="row">
+
+                        <div class="col-xs-12">{{rm.name}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-2">
+            <div class="row">
+                <div class="col-xs-12 highlight">Approved By:</div>
+                <div class="col-xs-12 field-medium">{{riskAssessment.approved_by.name}}</div>
+                <div class="col-xs-12 field-medium">CEO</div>
+                <div class="col-xs-12 field-medium">{{ riskAssessment.approve_date | date : format : timezone}}</div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+<br><br>
+    <div class="row header-row"> <!--  -->
+        <div class="col-xs-5">
+            <div class="row">
+                <!--<div class="col-xs-1">Ref</div>-->
+                <div class="col-xs-4">Work Activity</div>
+                <div class="col-xs-4">Subtask</div>
+                <div class="col-xs-4">Hazard</div>
+            </div>
+        </div>
+        <div class="col-xs-2">
+            <div class="row">
+                <div class="col-xs-6">Risk Ctrl</div>
+                <div class="col-xs-2">S</div>
+                <div class="col-xs-2">L</div>
+                <div class="col-xs-2">R</div>
+            </div>
+        </div>
+        <div class="col-xs-5">
+            <div class="row">
+                <div class="col-xs-4">Additional Ctrl</div>
+                <div class="col-xs-3">Person</div>
+                <div class="col-xs-2">Due</div>
+                <div class="col-xs-3">Remarks</div>
+            </div>
+        </div>
+    </div>
+    {{console.log(ViewCtrl.riskAssessment)}}
+    <!--ng-options="place.category for place in places | unique:'category'"-->
+    <div class="row" ng-repeat="wa in ViewCtrl.riskAssessment.work_activities| unique:'description'">
+        <div class="col-xs-12">
+           <div class="row" ng-repeat="subtask in wa.subtask">
+               <div class="col-xs-12">
+                   <div class="row" ng-repeat="hazard in subtask.hazard">
+                       <div class="col-xs-12">
+                           <div class="row row-style" ng-repeat="rc in hazard.risk_control">
+                               <div class="col-xs-5">
+                               <div class="row">
+                                   <div class="col-xs-4" ng-init="checkFirst=ViewCtrl.checkUnique(wa._id);">{{checkFirst?wa.description:''}}</div>
+                                   <div class="col-xs-4">{{$parent.$first?subtask.description:''}}</div>
+                                   <div class="col-xs-4">{{hazard.description}}</div>
+                               </div>
+                               </div>
+                               <div class="col-xs-2">
+                               <div class="row">
+                                   <div class="col-xs-6">{{rc.description}}</div>
+                                   <div class="col-xs-2">{{rc.severity}}</div>
+                                   <div class="col-xs-2">{{rc.likelihood}}</div>
+                                   <div class="col-xs-2">{{rc.severity * rc.likelihood}}</div>
+                               </div>
+                               </div>
+                               <div class="col-xs-5">
+                                   <div class="row" ng-repeat="arc in rc.additional_risk_control">
+                                       <div class="col-xs-4">{{arc.description}}</div>
+                                       <div class="col-xs-3">
+                                           <div class="row" ng-repeat="imp in arc.implementer">
+                                               <div class="col-xs-12"> {{imp.name}}</div>
+                                           </div>
+                                       </div>
+                                       <div class="col-xs-2">{{ arc.due_date | date : 'shortDate' : timezone}}</div>
+                                       <div class="col-xs-3">{{arc.remarks}}</div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+        </div>
+        <!--<div class="col-xs-5">-->
+            <!--<div class="row">-->
+                <!--<div class="col-xs-1">{{$index+1}}</div>-->
+                <!--<div class="col-xs-3">{{wa.description}}</div>-->
+                <!--<div class="col-xs-4">Subtask</div>-->
+                <!--<div class="col-xs-4">Hazard</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-xs-3">-->
+            <!--<div class="row">-->
+                <!--<div class="col-xs-8">Risk Ctrl</div>-->
+                <!--<div class="col-xs-1">S</div>-->
+                <!--<div class="col-xs-1">L</div>-->
+                <!--<div class="col-xs-1">RPN</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-xs-4">-->
+            <!--<div class="row">-->
+                <!--<div class="col-xs-4">Additional Ctrl</div>-->
+                <!--<div class="col-xs-3">Person</div>-->
+                <!--<div class="col-xs-2">Due Date</div>-->
+                <!--<div class="col-xs-3">Remarks</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+
 </section>

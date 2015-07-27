@@ -3,17 +3,12 @@
         <h1>Risk assessments</h1>
     </div>
     <div class="list-group">
-        <a data-ng-repeat="riskAssessment in riskAssessments" data-ng-href="#!/risk-assessments/{{riskAssessment._id}}" class="list-group-item">
-			<small class="list-group-item-text">
-				Posted on
-				<span data-ng-bind="riskAssessment.created | date:'medium'"></span>
-				by
-				<span data-ng-bind="riskAssessment.user.displayName"></span>
-			</small>
-			<h4 class="list-group-item-heading" data-ng-bind="riskAssessment.name"></h4>
+        <a data-ng-repeat="riskAssessment in riskAssessments" data-ng-href="#!/risk-assessments/{{riskAssessment._id}}"
+           class="list-group-item">
+            <h4 class="list-group-item-heading" data-ng-bind="riskAssessment.name"></h4>
         </a>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!riskAssessments.$resolved || riskAssessments.length">
-    	No Risk assessments yet, why don't you <a href="/#!/risk-assessments/create">create one</a>?
+        No Risk assessments yet, why don't you <a href="/#!/risk-assessments/create">create one</a>?
     </div>
 </section>

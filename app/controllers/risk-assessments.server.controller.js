@@ -73,7 +73,7 @@ exports.delete = function(req, res) {
  * List of Risk assessments
  */
 exports.list = function(req, res) { 
-	RiskAssessment.find().sort('-created').populate('user', 'displayName').exec(function(err, riskAssessments) {
+	RiskAssessment.find().sort('-created').populate( 'user','displayName').exec(function(err, riskAssessments) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -88,7 +88,7 @@ exports.list = function(req, res) {
  * Risk assessment middleware
  */
 exports.riskAssessmentByID = function(req, res, next, id) { 
-	RiskAssessment.findById(id).populate('user', 'displayName').exec(function(err, riskAssessment) {
+	RiskAssessment.findById(id).populate( 'user', 'displayName').exec(function(err, riskAssessment) {
 		if (err) return next(err);
 		if (! riskAssessment) return next(new Error('Failed to load Risk assessment ' + id));
 		req.riskAssessment = riskAssessment ;
