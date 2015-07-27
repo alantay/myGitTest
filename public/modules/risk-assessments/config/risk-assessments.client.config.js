@@ -7,5 +7,6 @@ angular.module('risk-assessments').run(['Menus',
 		Menus.addMenuItem('topbar', 'Risk assessments', 'risk-assessments', 'dropdown', '/risk-assessments(/create)?');
 		Menus.addSubMenuItem('topbar', 'risk-assessments', 'List Risk assessments', 'risk-assessments');
 		Menus.addSubMenuItem('topbar', 'risk-assessments', 'New Risk assessment', 'risk-assessments/create');
+        Menus.addSubMenuItem('topbar', 'risk-assessments', 'Alternate Risk assessment', 'risk-assessments/alternate');
 	}
 ]);
